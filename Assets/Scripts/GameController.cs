@@ -17,6 +17,7 @@ public class GameController : Singleton<GameController>
     float distScrolledSinceLastRootUpdate;
 
     public Fairy fairy;
+    public GameObject rootHitbox;
 
     [Header("Misc")]
     public float scrollSpeed = 4;
@@ -77,6 +78,7 @@ public class GameController : Singleton<GameController>
                 }
                 root.SetPositions(arr);
             }
+            rootHitbox.transform.position = root.GetPosition(Mathf.Max(0, root.positionCount - 10));
 
             root.SetPosition(root.positionCount - 1, newPos);
             timeSinceLastRootNode = 0;
