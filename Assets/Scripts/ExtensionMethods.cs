@@ -63,4 +63,15 @@ public static class ExtensionMethods
     {
         return new Vector3(v.x, v.y, z);
     }
+
+    public static Rect OrthographicBounds(this Camera camera)
+    {
+        float screenAspect = (float)Screen.width / (float)Screen.height;
+        float cameraHeight = camera.orthographicSize * 2;
+        var size = new Vector2(cameraHeight * screenAspect, cameraHeight);
+        Rect bounds = new Rect(
+            camera.transform.position - size.XY() / 2f, size.XY()
+            );
+        return bounds;
+    }
 }

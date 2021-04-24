@@ -49,6 +49,14 @@ public static class Utils
 		return closest;
 	}
 
+	public static void DrawRect(Rect r, Color c)
+	{
+		Debug.DrawLine(new Vector3(r.xMin, r.yMax, 0), new Vector3(r.xMax, r.yMax, 0), c);
+		Debug.DrawLine(new Vector3(r.xMax, r.yMax, 0), new Vector3(r.xMax, r.yMin, 0), c);
+		Debug.DrawLine(new Vector3(r.xMax, r.yMin, 0), new Vector3(r.xMin, r.yMin, 0), c);
+		Debug.DrawLine(new Vector3(r.xMin, r.yMin, 0), new Vector3(r.xMin, r.yMax, 0), c);
+	}
+
 	public static bool LayerIsInMask(int layer, LayerMask layermask)
 	{
 		return layermask == (layermask | (1 << layer));
@@ -93,6 +101,16 @@ public static class Utils
 	/// <param name="options"></param>
 	/// <returns></returns>
 	public static int Choose(params int[] options)
+	{
+		return options[Random.Range(0, options.Length)];
+	}
+
+	/// <summary>
+	/// Choose a random GameObject from an array
+	/// </summary>
+	/// <param name="options"></param>
+	/// <returns></returns>
+	public static GameObject Choose(params GameObject[] options)
 	{
 		return options[Random.Range(0, options.Length)];
 	}

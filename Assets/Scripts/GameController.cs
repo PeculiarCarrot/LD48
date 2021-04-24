@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Sirenix.OdinInspector;
 
 public class GameController : Singleton<GameController>
 {
@@ -16,13 +18,23 @@ public class GameController : Singleton<GameController>
     Camera cam;
     float distScrolledSinceLastRootUpdate;
 
+    public Canvas mainMenuCanvas;
+    public Canvas gameOverCanvas;
+
     public Fairy fairy;
     public GameObject rootHitbox;
+
+    [Header("Obstacles")]
+    [SerializeField]
+    public WeightedObstacle[] obstacles;
 
     [Header("Misc")]
     public float scrollSpeed = 4;
     public bool lockFPS;
     public int fps = 30;
+    [HideInInspector]
+    public bool gameOver;
+    public float difficulty;
 
     void Start()
     {
@@ -42,17 +54,95 @@ public class GameController : Singleton<GameController>
         Cursor.visible = false;
     }
 
+    public void StartGame()
+	{
+
+	}
+
+    public void OnRetryClicked()
+	{
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+    public void OnQuitClicked()
+	{
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
     void Update()
     {
+        if (gameOver)
+            return;
+
         cam.transform.position = cam.transform.position + Vector3.down * scrollSpeed * Time.deltaTime;
         distScrolledSinceLastRootUpdate += scrollSpeed * Time.deltaTime;
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         var camPos = Camera.main.transform.position;
 
+        difficulty = Utils.Remap(-camPos.y, 0, 0, 1000, 1, true, true);
+
         HandleMoveInput();
         UpdateRoot();
+        SpawnObjects();
     }
+
+    void SpawnObjects()
+	{
+        if (Random.Range(0, 1f) < difficulty * .2f)
+            SpawnObstacle();
+	}
+
+    void SpawnObstacle()
+	{
+        var o = Instantiate(ChooseWeightedObstacle().obj);
+        var pos = cam.transform.position;
+        pos.z = 0;
+        pos.y -= 10 + Random.Range(0, 3f);
+        pos.x += Random.Range(-7, 7);
+        o.transform.position = pos;
+        o.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 60));
+	}
+
+    void GameOver()
+	{
+        gameOverCanvas.enabled = true;
+        gameOver = true;
+        Cursor.visible = true;
+	}
+
+    public Vector3 ClampInsideCamera(Vector3 pos, float xPad, float yPad)
+	{
+        return ClampInsideCamera(pos, xPad, xPad, yPad, yPad);
+	}
+
+    public Vector3 ClampInsideCamera(Vector3 pos, float leftPad, float rightPad, float topPad, float bottomPad)
+	{
+        var bounds = Camera.main.OrthographicBounds();
+        var left = bounds.center.x - bounds.width / 2 + leftPad;
+        var right = bounds.center.x + bounds.width / 2 - rightPad;
+        var top = bounds.center.y + bounds.height / 2 - topPad;
+        var bottom = bounds.center.y - bounds.height / 2 + bottomPad;
+        //Utils.DrawRect(bounds, Color.yellow);
+        var newPos = pos;
+        newPos.x = Mathf.Clamp(newPos.x, left, right);
+        newPos.y = Mathf.Clamp(newPos.y, bottom, top);
+        return newPos;
+    }
+
+    public void OnRootHit(Collider2D col)
+	{
+        if(col.gameObject.CompareTag("Harmful"))
+		{
+            TimeControl.Hitstop(.4f, .2f);
+            GameOver();
+		}
+        //Debug.Log("ROOT HIT " + col);
+	}
 
     void UpdateRoot()
     {
@@ -63,6 +153,7 @@ public class GameController : Singleton<GameController>
             newPos += rootVelocity.XY() * Time.deltaTime;
 
             newPos.y = Mathf.Min(lastPos.y - distScrolledSinceLastRootUpdate * .25f, newPos.y);
+            newPos = ClampInsideCamera(newPos, .5f, .5f, 1f, .5f);
 
             if (root.positionCount < maxNodes)
             {
@@ -78,7 +169,7 @@ public class GameController : Singleton<GameController>
                 }
                 root.SetPositions(arr);
             }
-            rootHitbox.transform.position = root.GetPosition(Mathf.Max(0, root.positionCount - 10));
+            rootHitbox.transform.position = root.GetPosition(Mathf.Max(0, root.positionCount - 3));
 
             root.SetPosition(root.positionCount - 1, newPos);
             timeSinceLastRootNode = 0;
@@ -95,4 +186,34 @@ public class GameController : Singleton<GameController>
         rootVelocity.x = Utils.Multiply(rootVelocity.x, rootFric);
         rootVelocity.y = Utils.Multiply(rootVelocity.y, rootFric);
     }
+
+    WeightedObstacle ChooseWeightedObstacle()
+	{
+        float total = 0;
+        foreach(var o in obstacles)
+		{
+            total += Utils.Remap(difficulty, 0, o.weight.x, 1, o.weight.y);
+		}
+        float x = Random.Range(0, total);
+
+        foreach (var o in obstacles)
+        {
+            float w = Utils.Remap(difficulty, 0, o.weight.x, 1, o.weight.y);
+            x -= w;
+
+            if (!(x <= 0))
+                continue;
+
+            return o;
+        }
+        return obstacles[0];
+    }
+}
+
+[System.Serializable]
+public class WeightedObstacle
+{
+    public GameObject obj;
+    [MinMaxSlider(0, 20)]
+    public Vector2 weight = new Vector2(1, 1);
 }

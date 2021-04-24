@@ -20,13 +20,19 @@ public class Fairy : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GameController.Instance.gameOver)
+            return;
+
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         mousePos.y -= Time.deltaTime * GameController.Instance.scrollSpeed;
 
         var off = Vector3.down * GameController.Instance.scrollSpeed * Time.deltaTime;
         transform.position = transform.position + off;
+        var deltaX = transform.position.x - mousePos.x;
+        transform.rotation = Quaternion.Euler(0, 0, deltaX * 5);
 
-        transform.position = Vector3.Lerp(transform.position, mousePos, lerpSpeed * Time.deltaTime);
+        transform.position = GameController.Instance.ClampInsideCamera(
+            Vector3.Lerp(transform.position, mousePos, lerpSpeed * Time.deltaTime), .5f, .5f);
     }
 }
