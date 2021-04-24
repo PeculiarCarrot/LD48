@@ -32,6 +32,7 @@ public class GameController : Singleton<GameController>
     public float scrollSpeed = 4;
     public bool lockFPS;
     public int fps = 30;
+    public bool fairyPullsRoot;
     [HideInInspector]
     public bool gameOver;
     public float difficulty;
@@ -138,6 +139,14 @@ public class GameController : Singleton<GameController>
         newPos.y = Mathf.Clamp(newPos.y, bottom, top);
         return newPos;
     }
+    public void OnFairyHit(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("FairyHazard"))
+        {
+            TimeControl.Hitstop(.4f, .2f);
+            GameOver();
+        }
+    }
 
     public void OnRootHit(Collider2D col)
 	{
@@ -157,9 +166,12 @@ public class GameController : Singleton<GameController>
             var newPos = lastPos + Vector3.down * distScrolledSinceLastRootUpdate;
             newPos += rootVelocity.XY() * Time.deltaTime;
 
-            var rootFairyDelta = fairy.transform.position - lastPos;
-            rootFairyDelta.y *= .3f;
-            newPos += rootFairyDelta * Time.deltaTime * .33f;
+            if(fairyPullsRoot)
+            {
+                var rootFairyDelta = fairy.transform.position - lastPos;
+                rootFairyDelta.y *= .3f;
+                newPos += rootFairyDelta * Time.deltaTime * .33f;
+            }
 
             newPos.y = Mathf.Min(lastPos.y - distScrolledSinceLastRootUpdate * .25f, newPos.y);
             newPos = ClampInsideCamera(newPos, .5f, .5f, 1f, .5f);
