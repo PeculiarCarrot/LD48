@@ -12,10 +12,37 @@ public class MoleVillage : MonoBehaviour
 
     void Awake()
     {
-		for (int i = 0; i < Random.Range(moleCount.x, moleCount.y); i++)
+        var moleNum = Random.Range(moleCount.x, moleCount.y);
+        moles = new Mole[moleNum];
+
+        for (int i = 0; i < moleNum; i++)
 		{
-            var mole = Instantiate(molePrefab, transform);
+            moles[i] = Instantiate(molePrefab, transform).GetComponent<Mole>();
 		}
+    }
+
+    public void OnTriggerEnter2D(Collider2D col)
+	{
+        if(col.gameObject.CompareTag("Fairy"))
+		{
+            StartCoroutine(GiveHat());
+		}
+	}
+
+    IEnumerator GiveHat()
+	{
+        foreach (var m in moles)
+        {
+            m.Give();
+        }
+        yield return new WaitForSeconds(.5f);
+        GameController.Instance.GetNewHat();
+        yield return new WaitForSeconds(2f);
+        foreach (var m in moles)
+        {
+            m.StopGiving();
+        }
+
     }
 
     void Update()

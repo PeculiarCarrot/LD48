@@ -17,10 +17,10 @@ public class Mole : MonoBehaviour
     Vector3 goalPos;
     Vector3 startPos;
     float chosenMoveSpeed;
-    bool moving;
     float timeUntilWander;
     Animator animator;
     bool facingRight;
+    public MoleState state;
 
     void Awake()
     {
@@ -33,43 +33,68 @@ public class Mole : MonoBehaviour
         chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
     }
 
+    public void Give()
+	{
+        state = MoleState.Giving;
+        animator.SetTrigger("give");
+	}
+
+    public void StopGiving()
+	{
+        state = MoleState.Idling;
+        animator.SetTrigger("idle");
+        timeUntilWander = Random.Range(timeBetweenWander.x, timeBetweenWander.y);
+    }
+
     void Update()
     {
-        if(moving)
+        if(state == MoleState.Moving)
 		{
-            Debug.DrawLine(transform.position, goalPos, Color.yellow);
+            //Debug.DrawLine(transform.position, goalPos, Color.yellow);
             if(Vector3.Distance(transform.position, goalPos) > .05f)
 			{
                 transform.position = Vector3.MoveTowards(transform.position, goalPos, chosenMoveSpeed * Time.deltaTime);
 			}
             else
 			{
-                moving = false;
+                state = MoleState.Idling;
                 animator.SetTrigger("idle");
                 timeUntilWander = Random.Range(timeBetweenWander.x, timeBetweenWander.y);
             }
 		}
-        else
+        else if (state == MoleState.Idling)
         {
             if (timeUntilWander <= 0)
             {
-                goalPos = startPos + (Vector2.right * new Vector2(Random.Range(-maxWanderDistance, maxWanderDistance), 0)).XY();
-                moving = true;
-
-                if (facingRight && goalPos.x < transform.position.x)
-                {
-                    facingRight = false;
-                    transform.rotation = Quaternion.Euler(0, 180, 0);
-                }
-                else if (!facingRight && goalPos.x > transform.position.x)
-                {
-                    facingRight = true;
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-                animator.SetTrigger("walk");
+                WalkToNewPos();
             }
             else
                 timeUntilWander -= Time.deltaTime;
         }
     }
+
+    void WalkToNewPos()
+	{
+        goalPos = startPos + (Vector2.right * new Vector2(Random.Range(-maxWanderDistance, maxWanderDistance), 0)).XY();
+        state = MoleState.Moving;
+
+        if (facingRight && goalPos.x < transform.position.x)
+        {
+            facingRight = false;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (!facingRight && goalPos.x > transform.position.x)
+        {
+            facingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        animator.SetTrigger("walk");
+    }
+
+    public enum MoleState
+	{
+        Idling,
+        Moving,
+        Giving
+	}
 }

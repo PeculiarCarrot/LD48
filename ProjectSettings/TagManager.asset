@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Harmful
   - FairyHazard
+  - MoleVillage
+  - Fairy
   layers:
   - Default
   - TransparentFX

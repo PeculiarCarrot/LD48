@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using TMPro;
+using System.Linq;
 
 public class GameController : Singleton<GameController>
 {
@@ -43,8 +44,16 @@ public class GameController : Singleton<GameController>
     [Required]
     public TextMeshProUGUI meterText;
 
+    public GameObject[] hatPrefabs;
+
+    GameObject[] hatOrderForThisRun;
+    int hatsObtained = 0;
+
     void Start()
     {
+        var rnd = new System.Random();
+        hatOrderForThisRun = hatPrefabs.OrderBy(x => rnd.Next()).ToArray();
+
         cam = Camera.main;
         if(lockFPS)
         {
@@ -59,6 +68,28 @@ public class GameController : Singleton<GameController>
 		}
         root.SetPositions(arr);
     }
+
+    public void GetNewHat()
+	{
+        Transform parent = fairy.hatPos.transform;
+        Debug.Log("NEW HAT==========================================================================");
+        if(hatsObtained > 0)
+		{
+            var s = "";
+            while(parent.childCount > 0)
+			{
+                s += "  ";
+                parent = parent.transform.GetChild(0);
+                Debug.Log("Parent: " + parent);
+			}
+		}
+
+        var hat = Instantiate(hatPrefabs[hatsObtained], parent);
+        hat.transform.localPosition = Vector3.zero;
+        hat.transform.localScale = Vector3.one;
+
+        hatsObtained++;
+	}
 
     public void StartGame()
 	{

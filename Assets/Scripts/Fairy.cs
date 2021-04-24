@@ -7,6 +7,7 @@ public class Fairy : MonoBehaviour
 {
     public float lerpSpeed = 7f;
     new SpriteRenderer renderer;
+    public GameObject hatPos;
 
 	private void Awake()
 	{
