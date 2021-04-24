@@ -2392,6 +2392,7 @@ MonoBehaviour:
   scrollSpeed: 4
   lockFPS: 1
   fps: 60
+  fairyPullsRoot: 0
   gameOver: 0
   difficulty: 0
 --- !u!4 &1473630551
@@ -2906,6 +2907,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4669408140890418838, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.0273657
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669408140890418838, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.1594424
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669408140890418838, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.011405468
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669408140890418838, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.104807734
+      objectReference: {fileID: 0}
     - target: {fileID: 4669408140890418858, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
         type: 3}
       propertyPath: m_RootOrder
@@ -2914,12 +2935,12 @@ PrefabInstance:
     - target: {fileID: 4669408140890418858, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.854491
+      value: -4.71
       objectReference: {fileID: 0}
     - target: {fileID: 4669408140890418858, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.66
+      value: -1.42
       objectReference: {fileID: 0}
     - target: {fileID: 4669408140890418858, guid: 72070ae5ee175ed439ecca5b4e6cbfe4,
         type: 3}
