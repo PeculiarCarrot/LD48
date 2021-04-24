@@ -81,6 +81,12 @@ public static class Utils
 		return v;
 	}
 
+	public static void DrawCross(Vector3 pos, Color color)
+	{
+		Debug.DrawLine(pos + Vector3.up, pos + Vector3.down, color);
+		Debug.DrawLine(pos + Vector3.right, pos + Vector3.left, color);
+	}
+
 	/// <summary>
 	/// Choose a random int from an array
 	/// </summary>

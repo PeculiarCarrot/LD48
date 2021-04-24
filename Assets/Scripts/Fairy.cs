@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
+//[RequireComponent(typeof(SpriteRenderer))]
 public class Fairy : MonoBehaviour
 {
-    public float lerpSpeed = 5f;
+    public float lerpSpeed = 7f;
     new SpriteRenderer renderer;
 
 	private void Awake()
 	{
-        renderer = GetComponent<SpriteRenderer>();
+        renderer = GetComponentInChildren<SpriteRenderer>();
 	}
 
 	void Start()
@@ -18,12 +18,15 @@ public class Fairy : MonoBehaviour
         
     }
 
-    void Update()
+    void LateUpdate()
     {
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        Debug.DrawLine(mousePos, Vector3.zero, Color.magenta);
+        mousePos.y -= Time.deltaTime * GameController.Instance.scrollSpeed;
 
-        transform.position = Vector3.Lerp(transform.position, mousePos, Time.deltaTime * lerpSpeed);
+        var off = Vector3.down * GameController.Instance.scrollSpeed * Time.deltaTime;
+        transform.position = transform.position + off;
+
+        transform.position = Vector3.Lerp(transform.position, mousePos, lerpSpeed * Time.deltaTime);
     }
 }

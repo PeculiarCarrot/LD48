@@ -38,6 +38,7 @@ public class GameController : Singleton<GameController>
             arr[i] = p;
 		}
         root.SetPositions(arr);
+        Cursor.visible = false;
     }
 
     void Update()
@@ -60,7 +61,7 @@ public class GameController : Singleton<GameController>
             var newPos = lastPos + Vector3.down * distScrolledSinceLastRootUpdate;
             newPos += rootVelocity.XY() * Time.deltaTime;
 
-            newPos.y = Mathf.Min(lastPos.y, newPos.y);
+            newPos.y = Mathf.Min(lastPos.y - distScrolledSinceLastRootUpdate * .25f, newPos.y);
 
             if (root.positionCount < maxNodes)
             {
