@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
+using TMPro;
 
 public class GameController : Singleton<GameController>
 {
@@ -36,6 +37,11 @@ public class GameController : Singleton<GameController>
     [HideInInspector]
     public bool gameOver;
     public float difficulty;
+
+    [Required]
+    public TextMeshProUGUI difficultyText;
+    [Required]
+    public TextMeshProUGUI meterText;
 
     void Start()
     {
@@ -75,6 +81,8 @@ public class GameController : Singleton<GameController>
 
     void Update()
     {
+        difficultyText.text = "Difficulty: " + difficulty.ToString("0.00");
+        meterText.text = (Camera.main.transform.position.y * -.1f).ToString("0.0") + "m";
         if (gameOver)
             return;
         Cursor.visible = false;
@@ -98,7 +106,8 @@ public class GameController : Singleton<GameController>
 
     void SpawnObjects()
 	{
-        if (Random.Range(0, 1f) < difficulty * .2f)
+        var diff = Mathf.Max(difficulty, .05f);
+        if (Random.Range(0, 1f) < diff * .2f)
             SpawnObstacle();
 	}
 
@@ -237,6 +246,8 @@ public class WeightedObstacle
     public GameObject obj;
     [Range(0, 180)]
     public float rotate = 0;
+    [Range(0, 1f)]
+    public float onlySpawnAfter = 0;
     [MinMaxSlider(0, 20)]
     public Vector2 weight = new Vector2(1, 1);
 }

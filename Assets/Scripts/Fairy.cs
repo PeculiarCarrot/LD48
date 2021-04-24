@@ -31,7 +31,7 @@ public class Fairy : MonoBehaviour
         transform.position = transform.position + off;
         mousePos = GameController.Instance.ClampInsideCamera(mousePos, .25f, .25f);
         var deltaX = transform.position.x - mousePos.x;
-        transform.rotation = Quaternion.Euler(0, 0, deltaX * 5);
+        transform.rotation = Quaternion.Euler(0, 0, deltaX * 8);
 
         transform.position = 
             Vector3.Lerp(transform.position, mousePos, lerpSpeed * Time.deltaTime);

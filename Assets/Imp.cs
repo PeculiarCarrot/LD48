@@ -31,6 +31,7 @@ public class Imp : MonoBehaviour
 
     IEnumerator DoStuff()
 	{
+        yield return new WaitForSeconds(1.5f);
         while(castsLeft > 0)
         {
             animator.SetTrigger("cast");
@@ -41,7 +42,7 @@ public class Imp : MonoBehaviour
         leaving = true;
     }
 
-	void Update()
+	void LateUpdate()
     {
         if(leaving)
 		{
@@ -61,7 +62,7 @@ public class Imp : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         var newPos = transform.position;
-        newPos.y = Mathf.Lerp(newPos.y, fairy.transform.position.y - GameController.Instance.scrollSpeed * 8f * Time.deltaTime,
+        newPos.y = Mathf.Lerp(newPos.y, fairy.transform.position.y - GameController.Instance.scrollSpeed * 13f * Time.deltaTime,
             Time.deltaTime * 2f);
         transform.position = newPos;
     }
