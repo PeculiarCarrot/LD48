@@ -29,10 +29,11 @@ public class Fairy : MonoBehaviour
 
         var off = Vector3.down * GameController.Instance.scrollSpeed * Time.deltaTime;
         transform.position = transform.position + off;
+        mousePos = GameController.Instance.ClampInsideCamera(mousePos, .25f, .25f);
         var deltaX = transform.position.x - mousePos.x;
         transform.rotation = Quaternion.Euler(0, 0, deltaX * 5);
 
-        transform.position = GameController.Instance.ClampInsideCamera(
-            Vector3.Lerp(transform.position, mousePos, lerpSpeed * Time.deltaTime), .5f, .5f);
+        transform.position = 
+            Vector3.Lerp(transform.position, mousePos, lerpSpeed * Time.deltaTime);
     }
 }

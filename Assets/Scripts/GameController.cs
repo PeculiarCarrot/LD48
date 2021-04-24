@@ -51,7 +51,6 @@ public class GameController : Singleton<GameController>
             arr[i] = p;
 		}
         root.SetPositions(arr);
-        Cursor.visible = false;
     }
 
     public void StartGame()
@@ -77,6 +76,7 @@ public class GameController : Singleton<GameController>
     {
         if (gameOver)
             return;
+        Cursor.visible = false;
 
         cam.transform.position = cam.transform.position + Vector3.down * scrollSpeed * Time.deltaTime;
         distScrolledSinceLastRootUpdate += scrollSpeed * Time.deltaTime;
@@ -85,6 +85,10 @@ public class GameController : Singleton<GameController>
         var camPos = Camera.main.transform.position;
 
         difficulty = Utils.Remap(-camPos.y, 0, 0, 1000, 1, true, true);
+#if UNITY_EDITOR
+        if (Input.GetMouseButtonDown(2))
+            Debug.Break();
+#endif
 
         HandleMoveInput();
         UpdateRoot();
@@ -99,13 +103,14 @@ public class GameController : Singleton<GameController>
 
     void SpawnObstacle()
 	{
-        var o = Instantiate(ChooseWeightedObstacle().obj);
+        var obstacle = ChooseWeightedObstacle();
+        var o = Instantiate(obstacle.obj);
         var pos = cam.transform.position;
         pos.z = 0;
         pos.y -= 10 + Random.Range(0, 3f);
         pos.x += Random.Range(-7, 7);
         o.transform.position = pos;
-        o.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 60));
+        o.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-obstacle.rotate, -obstacle.rotate));
 	}
 
     void GameOver()
@@ -151,6 +156,10 @@ public class GameController : Singleton<GameController>
             lastPos = root.GetPosition(root.positionCount - 1);
             var newPos = lastPos + Vector3.down * distScrolledSinceLastRootUpdate;
             newPos += rootVelocity.XY() * Time.deltaTime;
+
+            var rootFairyDelta = fairy.transform.position - lastPos;
+            rootFairyDelta.y *= .3f;
+            newPos += rootFairyDelta * Time.deltaTime * .33f;
 
             newPos.y = Mathf.Min(lastPos.y - distScrolledSinceLastRootUpdate * .25f, newPos.y);
             newPos = ClampInsideCamera(newPos, .5f, .5f, 1f, .5f);
@@ -214,6 +223,8 @@ public class GameController : Singleton<GameController>
 public class WeightedObstacle
 {
     public GameObject obj;
+    [Range(0, 180)]
+    public float rotate = 0;
     [MinMaxSlider(0, 20)]
     public Vector2 weight = new Vector2(1, 1);
 }
