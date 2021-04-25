@@ -263,6 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3506656347367499123}
   - component: {fileID: 9132474115785316618}
+  - component: {fileID: -4734906450368384831}
   m_Layer: 0
   m_Name: MoleVillage
   m_TagString: Untagged
@@ -308,6 +309,18 @@ MonoBehaviour:
   quipsFile: {fileID: 4900000, guid: 1cba2c33732aa1f4c96b516144222610, type: 3}
   dialogueText: {fileID: 2508317036546573868}
   moleCount: {x: 2, y: 8}
+--- !u!114 &-4734906450368384831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3506656347367499124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18fbcd7450a4c34cb29e36171761184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6470616080678087761
 GameObject:
   m_ObjectHideFlags: 0

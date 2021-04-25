@@ -56,6 +56,7 @@ public class GameController : Singleton<GameController>
     bool rootInitialized;
     float timeSinceRootInitialized;
     public float timePerVillage = 10f;
+    public bool invincible;
 
     void Start()
     {
@@ -179,9 +180,9 @@ public class GameController : Singleton<GameController>
 #endif
 
         HandleMoveInput();
-        if(timeSinceRootInitialized > rootDelay)
+        UpdateRoot();
+        if (timeSinceRootInitialized > rootDelay)
         {
-            UpdateRoot();
             SpawnObjects();
 
             if(timeSinceRootInitialized - rootDelay > (1 + villagesSpawned) * timePerVillage)
@@ -189,6 +190,7 @@ public class GameController : Singleton<GameController>
                 SpawnMoleVillage();
 			}
         }
+        root.SetPosition(0, cam.transform.position + Vector3.up * 25);
     }
     int villagesSpawned;
 
@@ -250,11 +252,13 @@ public class GameController : Singleton<GameController>
 
     public Vector3 ClampInsideCamera(Vector3 pos, float leftPad, float rightPad, float topPad, float bottomPad)
 	{
-        var bounds = Camera.main.OrthographicBounds();
-        var left = bounds.center.x - bounds.width / 2 + leftPad;
-        var right = bounds.center.x + bounds.width / 2 - rightPad;
-        var top = bounds.center.y + bounds.height / 2 - topPad;
-        var bottom = bounds.center.y - bounds.height / 2 + bottomPad;
+        var cam = Camera.main;
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = cam.aspect * halfHeight;
+        var left = cam.transform.position.x - halfWidth; //bounds.center.x - bounds.width / 2 + leftPad;
+        var right = cam.transform.position.x + halfWidth;//bounds.center.x + bounds.width / 2 - rightPad;
+        var top = cam.transform.position.y + halfHeight;//bounds.center.y + bounds.height / 2 - topPad;
+        var bottom = cam.transform.position.y - halfHeight;//bounds.center.y - bounds.height / 2 + bottomPad;
         //Utils.DrawRect(bounds, Color.yellow);
         var newPos = pos;
         newPos.x = Mathf.Clamp(newPos.x, left, right);
@@ -263,7 +267,7 @@ public class GameController : Singleton<GameController>
     }
     public void OnFairyHit(Collider2D col)
     {
-        if (col.gameObject.CompareTag("FairyHazard"))
+        if (col.gameObject.CompareTag("FairyHazard") && !invincible)
         {
             //TimeControl.Hitstop(.4f, .2f);
             GameOver();
@@ -272,7 +276,7 @@ public class GameController : Singleton<GameController>
 
     public void OnRootHit(Collider2D col)
 	{
-        if(col.gameObject.CompareTag("Harmful"))
+        if(col.gameObject.CompareTag("Harmful") && !invincible)
 		{
             //TimeControl.Hitstop(.4f, .2f);
             GameOver();

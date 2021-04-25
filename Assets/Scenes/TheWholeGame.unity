@@ -3214,6 +3214,7 @@ MonoBehaviour:
   - {fileID: 8497643081736378703, guid: f4e6acba21fcb0946bbb5e7a6d4ff8c9, type: 3}
   - {fileID: 983464365631943129, guid: 4dac736adb9814847b8598ee1be02e6c, type: 3}
   timePerVillage: 5
+  invincible: 1
   rootDelay: 4.5
 --- !u!4 &1473630551
 Transform:
