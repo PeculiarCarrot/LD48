@@ -157,6 +157,15 @@ public static class Utils
 	{
 		return options[Random.Range(0, options.Length)];
 	}
+	/// <summary>
+	/// Choose a random AudioClip from an array
+	/// </summary>
+	/// <param name="options"></param>
+	/// <returns></returns>
+	public static AudioClip Choose(params AudioClip[] options)
+	{
+		return options[Random.Range(0, options.Length)];
+	}
 
 	/// <summary>
 	/// Choose a random object from an array

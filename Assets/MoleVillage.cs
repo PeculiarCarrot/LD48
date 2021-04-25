@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,6 +11,8 @@ public class MoleVillage : MonoBehaviour
     public TextAsset quipsFile;
     public TextMeshProUGUI dialogueText;
     public GameObject[] housePrefabs;
+    AudioSource audio;
+    public AudioClip[] greetingClips;
 
     static string[] quips;
     [MinMaxSlider(1, 20)]
@@ -36,6 +39,7 @@ public class MoleVillage : MonoBehaviour
             quips = quipsFile.text.Split('\n');
 		}
 
+        audio = GetComponent<AudioSource>();
         var moleNum = Random.Range(moleCount.x, moleCount.y);
         moles = new Mole[moleNum];
 
@@ -56,12 +60,19 @@ public class MoleVillage : MonoBehaviour
 	}
 
     public void OnTriggerEnter2D(Collider2D col)
-	{
-        if(col.gameObject.CompareTag("Fairy"))
-		{
+    {
+        if (col.gameObject.CompareTag("Fairy"))
+        {
             StartCoroutine(StartConversation());
-		}
-	}
+        }
+        else if (col.gameObject.CompareTag("Harmful"))
+        {
+            if (col.GetComponent<Worm>() != null
+                || col.GetComponent<Termite>() != null)
+                return;
+            Destroy(col.gameObject);
+        }
+    }
 
     IEnumerator StartConversation()
 	{
@@ -72,6 +83,10 @@ public class MoleVillage : MonoBehaviour
         GameController.Instance.Pause();
         goalDialogueText = Utils.Choose(quips);
         typeCoroutine = StartCoroutine(TypeText(goalDialogueText));
+
+        audio.clip = Utils.Choose(greetingClips);
+        audio.Play();
+
         foreach (var m in moles)
         {
             m.GetExcited();
@@ -108,6 +123,7 @@ public class MoleVillage : MonoBehaviour
             m.StopBeingExcited();
         }
         GameController.Instance.Unpause();
+        audio.DOFade(0f, 2f);
     }
 
     void Update()

@@ -7,6 +7,7 @@ using TMPro;
 using System.Linq;
 using DG.Tweening;
 using SpriteShatter;
+using UnityEngine.UI;
 
 public class GameController : Singleton<GameController>
 {
@@ -53,16 +54,30 @@ public class GameController : Singleton<GameController>
     public GameObject[] hatPrefabs;
 
     GameObject[] hatOrderForThisRun;
-    int hatsObtained = 0;
+    [HideInInspector]
+    public int hatsObtained = 0;
     bool rootInitialized;
     float timeSinceRootInitialized;
     public float timePerVillage = 10f;
     public bool invincible;
+    public Image blackFade;
+
+    public AudioSource menuMusic, gameplayMusic;
+
+    [Range(0, 1f)]
+    public float musicVolume = .05f;
+
+    void Awake()
+	{
+        blackFade.color = Color.black;
+	}
 
     void Start()
     {
+        blackFade.DOFade(0f, 1.2f);
+        menuMusic.volume = 0;
+        menuMusic.DOFade(musicVolume, 1.2f);
         Cursor.visible = true;
-        var rnd = new System.Random();
         hatOrderForThisRun = new GameObject[hatPrefabs.Length];
 		for (int i = 0; i < hatPrefabs.Length; i++)
 		{
@@ -122,6 +137,9 @@ public class GameController : Singleton<GameController>
         DOTween.To(() => scrollSpeed, x => scrollSpeed = x, goalScrollSpeed * 1.6f, 1.5f).OnComplete(()=> {
             DOTween.To(() => scrollSpeed, x => scrollSpeed = x, goalScrollSpeed, 1f).SetDelay(3f);
         });
+        menuMusic.DOFade(0, 2f).SetDelay(3f);
+        gameplayMusic.Play();
+        gameplayMusic.DOFade(musicVolume, 2f).SetDelay(3f);
         InitializeRoot();
         yield break;
     }
@@ -144,16 +162,25 @@ public class GameController : Singleton<GameController>
 
     public void OnRetryClicked()
 	{
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameplayMusic.DOFade(0, 1.2f);
+        blackFade.DOFade(1f, 1.2f).onComplete += () =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        };
 	}
 
     public void OnQuitClicked()
 	{
+
+        gameplayMusic.DOFade(0, 1.2f);
+        blackFade.DOFade(1f, 1.2f).onComplete += () =>
+        {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+        };
     }
 
     void Update()
@@ -176,7 +203,7 @@ public class GameController : Singleton<GameController>
         mousePos.z = 0;
         var camPos = Camera.main.transform.position;
 
-        difficulty = Utils.Remap(-camPos.y, 0, 0, 1000, 1, true, true);
+        difficulty = Utils.Remap(-camPos.y, 0, 0, 480, 1, true, true);
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(2))
             Debug.Break();
@@ -199,8 +226,8 @@ public class GameController : Singleton<GameController>
 
     void SpawnObjects()
 	{
-        var diff = Mathf.Max(difficulty, .03f);
-        if (Random.Range(0, 1f) < diff * .2f)
+        var diff = Mathf.Max(difficulty, .1f);
+        if (Random.Range(0, 1f) < diff * .17f)
             SpawnObstacle();
 	}
 
@@ -228,7 +255,7 @@ public class GameController : Singleton<GameController>
         pos.y -= 10 + Random.Range(0, 3f);
         pos.x += Random.Range(-halfWidth, halfWidth);
         o.transform.position = pos;
-        o.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-obstacle.rotate, -obstacle.rotate));
+        o.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-obstacle.rotate, obstacle.rotate));
 	}
 
     void GameOver()
@@ -258,10 +285,10 @@ public class GameController : Singleton<GameController>
         var cam = Camera.main;
         float halfHeight = cam.orthographicSize;
         float halfWidth = cam.aspect * halfHeight;
-        var left = cam.transform.position.x - halfWidth; //bounds.center.x - bounds.width / 2 + leftPad;
-        var right = cam.transform.position.x + halfWidth;//bounds.center.x + bounds.width / 2 - rightPad;
-        var top = cam.transform.position.y + halfHeight;//bounds.center.y + bounds.height / 2 - topPad;
-        var bottom = cam.transform.position.y - halfHeight;//bounds.center.y - bounds.height / 2 + bottomPad;
+        var left = cam.transform.position.x - halfWidth + leftPad; //bounds.center.x - bounds.width / 2 + leftPad;
+        var right = cam.transform.position.x + halfWidth - rightPad;//bounds.center.x + bounds.width / 2 - rightPad;
+        var top = cam.transform.position.y + halfHeight - topPad;//bounds.center.y + bounds.height / 2 - topPad;
+        var bottom = cam.transform.position.y - halfHeight + bottomPad;//bounds.center.y - bounds.height / 2 + bottomPad;
         //Utils.DrawRect(bounds, Color.yellow);
         var newPos = pos;
         newPos.x = Mathf.Clamp(newPos.x, left, right);
@@ -303,7 +330,7 @@ public class GameController : Singleton<GameController>
                 newPos += rootFairyDelta * Time.deltaTime * .33f;
             }
 
-            newPos.y = Mathf.Min(lastPos.y - distScrolledSinceLastRootUpdate * .25f, newPos.y);
+            newPos.y = Mathf.Min(lastPos.y - distScrolledSinceLastRootUpdate * .1f, newPos.y);
             if(timeSinceRootInitialized > rootDelay)
                 newPos = ClampInsideCamera(newPos, .5f, .5f, 1f, .5f);
 
@@ -342,7 +369,18 @@ public class GameController : Singleton<GameController>
         if (timeSinceRootInitialized < t + rootDelay && timeSinceRootInitialized > rootDelay)
             input.y -= ((t + rootDelay) - timeSinceRootInitialized) * 3f;
 
-        input.Normalize();
+        if (input.y > 0)
+        {
+            var yy = input.y;
+            input.y = 0;
+            input.Normalize();
+            input.y = yy;
+        }
+        else
+        {
+            input.Normalize();
+        }
+
         rootVelocity += input * Time.deltaTime * rootAccel;
         rootVelocity.x = Utils.Multiply(rootVelocity.x, rootFric);
         rootVelocity.y = Utils.Multiply(rootVelocity.y, rootFric);
@@ -353,12 +391,15 @@ public class GameController : Singleton<GameController>
         float total = 0;
         foreach(var o in obstacles)
 		{
-            total += Utils.Remap(difficulty, 0, o.weight.x, 1, o.weight.y);
+            if(difficulty >= o.onlySpawnAfter)
+                total += Utils.Remap(difficulty, 0, o.weight.x, 1, o.weight.y);
 		}
         float x = Random.Range(0, total);
 
         foreach (var o in obstacles)
         {
+            if (difficulty < o.onlySpawnAfter)
+                continue;
             float w = Utils.Remap(difficulty, 0, o.weight.x, 1, o.weight.y);
             x -= w;
 

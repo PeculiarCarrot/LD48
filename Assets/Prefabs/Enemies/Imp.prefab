@@ -68,10 +68,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 1344997203046365246, guid: b46da39aeb3bf3e448b67045c7779319,
     type: 3}
-  fireballCount: {x: 3, y: 7}
+  fireballCount: {x: 1, y: 4}
   spread: 30
-  timeBetweenCasts: {x: 1.5, y: 5}
-  castsBeforeLeave: {x: 3, y: 10}
+  timeBetweenCasts: {x: 2.4655018, y: 5}
+  castsBeforeLeave: {x: 3, y: 6}
 --- !u!114 &4669408140890418856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 120
   m_Sprite: {fileID: 21300000, guid: b4ca070eb4d16ee4eac30a660f6b0287, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

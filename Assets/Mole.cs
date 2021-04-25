@@ -21,6 +21,8 @@ public class Mole : MonoBehaviour
     Animator animator;
     bool facingRight;
     public MoleState state;
+    public Sprite snoozySprite;
+    bool snoozy;
 
     void Awake()
     {
@@ -30,21 +32,32 @@ public class Mole : MonoBehaviour
 	private void Start()
 	{
         var newPos = transform.localPosition;
-        newPos.x = Random.Range(-2, 2f);
+        newPos.x = Random.Range(-maxSpawnDistFromVillageCenter, maxSpawnDistFromVillageCenter);
         newPos.y = -2.87f;
+        chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
+
+        if(Random.Range(1, 10) == 1)
+		{
+            snoozy = true;
+            GetComponentInChildren<SpriteRenderer>().sprite = snoozySprite;
+            newPos.x = Random.Range(-maxSpawnDistFromVillageCenter - maxWanderDistance, maxSpawnDistFromVillageCenter + maxWanderDistance);
+        }
         transform.localPosition = newPos;
         startPos = transform.position;
-        chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
     }
 
 	public void GetExcited()
 	{
+        if (snoozy)
+            return;
         state = MoleState.Giving;
         animator.SetTrigger("give");
 	}
 
     public void StopBeingExcited()
-	{
+    {
+        if (snoozy)
+            return;
         state = MoleState.Idling;
         animator.SetTrigger("idle");
         timeUntilWander = Random.Range(timeBetweenWander.x, timeBetweenWander.y);
@@ -52,7 +65,9 @@ public class Mole : MonoBehaviour
 
     void Update()
     {
-        if(state == MoleState.Moving)
+        if (snoozy)
+            return;
+        if (state == MoleState.Moving)
 		{
             Debug.DrawLine(transform.position, goalPos, Color.yellow);
             if(Vector3.Distance(transform.position, goalPos) > .05f)
@@ -78,7 +93,9 @@ public class Mole : MonoBehaviour
     }
 
     void WalkToNewPos()
-	{
+    {
+        if (snoozy)
+            return;
         goalPos = startPos + (Vector2.right * new Vector2(Random.Range(-maxWanderDistance, maxWanderDistance), 0)).XY();
         state = MoleState.Moving;
 

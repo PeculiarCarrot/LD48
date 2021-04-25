@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8126168912215390032}
   - component: {fileID: 1220766361929791491}
   - component: {fileID: 493736948742545285}
+  - component: {fileID: 5807725750299153644}
   m_Layer: 0
   m_Name: Rock 1
   m_TagString: Harmful
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 40
   m_Sprite: {fileID: 21300000, guid: 516a562ee38d647459d93e818405440a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,3 +122,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.935186, y: 2.608895}
   m_EdgeRadius: 0
+--- !u!114 &5807725750299153644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095401971468966299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1444a197ffb58234f8f5a20b8b550147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: {x: 0.75, y: 1.5}

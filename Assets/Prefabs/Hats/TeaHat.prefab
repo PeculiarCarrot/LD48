@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 8720841706390434513, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_Name
-      value: TeaHat Variant
+      value: TeaHat
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434514, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
@@ -91,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 8720841707094446498, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.017
+      value: 0.828
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b47420124e8324eb7d3b8e21c66c3c, type: 3}

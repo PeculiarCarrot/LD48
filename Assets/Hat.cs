@@ -29,6 +29,7 @@ public class Hat : MonoBehaviour
         newPos.z = 0;
         transform.position = newPos;
         transform.localScale = Vector3.zero;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         transform.DOScale(.7f, .5f).SetEase(Ease.OutBack);
         //showoff.transform.localScale = Vector3.zero;
         //showoff.transform.DOScale(1f, 1f).SetEase(Ease.OutCubic);
@@ -42,7 +43,10 @@ public class Hat : MonoBehaviour
         transform.DOLocalMove(Vector3.zero, .7f).SetEase(Ease.InOutQuad);
         transform.DORotate(new Vector3(0, 0, 0), .7f).SetEase(Ease.InOutQuad);
         transform.DOScale(1f, .7f).SetEase(Ease.InOutQuad);
-        showoff.transform.DOScale(0, .5f).onComplete += ()=> { showoff.SetActive(false); };
+        showoff.transform.DOScale(0, .5f).onComplete += ()=> {
+            showoff.SetActive(false);
+            GetComponent<SpriteRenderer>().sortingOrder = 160 + GameController.Instance.hatsObtained;
+        };
     }
 
     void Update()
