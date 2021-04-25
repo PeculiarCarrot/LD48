@@ -37,13 +37,13 @@ public class Mole : MonoBehaviour
         chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
     }
 
-	public void Give()
+	public void GetExcited()
 	{
         state = MoleState.Giving;
         animator.SetTrigger("give");
 	}
 
-    public void StopGiving()
+    public void StopBeingExcited()
 	{
         state = MoleState.Idling;
         animator.SetTrigger("idle");

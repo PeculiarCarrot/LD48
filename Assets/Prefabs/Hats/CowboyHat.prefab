@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 8720841706390434513, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_Name
-      value: CowboyHat Variant
+      value: CowboyHat
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434514, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
@@ -26,27 +26,27 @@ PrefabInstance:
     - target: {fileID: 8720841706390434515, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15948592
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434515, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.15948592
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434515, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.15948592
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434515, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.8787727
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434515, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6599329
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8720841706390434515, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
@@ -91,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 8720841707094446498, guid: e0b47420124e8324eb7d3b8e21c66c3c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.38
+      value: 1.17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b47420124e8324eb7d3b8e21c66c3c, type: 3}

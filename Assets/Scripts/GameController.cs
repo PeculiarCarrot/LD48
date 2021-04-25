@@ -82,24 +82,25 @@ public class GameController : Singleton<GameController>
         Pause();
     }
 
-    public void GetNewHat()
+    public Hat GetNewHat()
 	{
         Transform parent = fairy.hatPos.transform;
         if(hatsObtained > 0)
 		{
+            var h = parent.GetChild(0).GetComponent<Hat>();
             var s = "";
-            while(parent.childCount > 0)
+            while(h.topPos.childCount > 0)
 			{
                 s += "  ";
-                parent = parent.transform.GetChild(0);
+                h = h.topPos.GetChild(0).GetComponent<Hat>();
 			}
+            parent = h.topPos;
 		}
 
-        var hat = Instantiate(hatOrderForThisRun[hatsObtained], parent);
-        hat.transform.localPosition = Vector3.zero;
-        hat.transform.localScale = Vector3.one;
+        var hat = Instantiate(hatOrderForThisRun[hatsObtained], parent).GetComponent<Hat>();
 
         hatsObtained++;
+        return hat;
 	}
 
     public void OnStartClicked()
@@ -282,11 +283,7 @@ public class GameController : Singleton<GameController>
 		{
             TimeControl.Hitstop(.05f);
             CameraShake.Shake(.1f, .1f);
-            if(col.gameObject.TryGetComponent(out Shatter shatter))
-			{
-                shatter.shatter();
-            }
-            //GameOver();
+            GameOver();
 		}
         //Debug.Log("ROOT HIT " + col);
 	}

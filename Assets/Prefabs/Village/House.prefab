@@ -10,13 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6041751557550556281}
   - component: {fileID: 5784602660766276396}
-  - component: {fileID: 9181371611494101587}
   - component: {fileID: 7586068343563821992}
   - component: {fileID: 4194474678545388256}
-  - component: {fileID: 5483817690409781762}
   m_Layer: 0
   m_Name: House
-  m_TagString: Untagged
+  m_TagString: Harmful
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821471706354161306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.69933, y: 0.69933, z: 0.69933}
+  m_LocalPosition: {x: 2.2, y: -2.75, z: 0}
+  m_LocalScale: {x: 0.48, y: 0.48, z: 0.48}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: c4af50ece9bb63b4abab3495cf85518e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e3f7cc9acd0ffc44a4bec65594c8d2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,24 +81,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
---- !u!114 &9181371611494101587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821471706354161306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69862de51a96aa94f820712713c74e82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  choices:
-  - {fileID: 21300000, guid: 9e3f7cc9acd0ffc44a4bec65594c8d2a, type: 3}
-  - {fileID: 21300000, guid: c4af50ece9bb63b4abab3495cf85518e, type: 3}
-  - {fileID: 21300000, guid: ec223c5f079552040b6dfb661b3fd262, type: 3}
 --- !u!114 &7586068343563821992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,36 +112,3 @@ CircleCollider2D:
   m_Offset: {x: 0.014246544, y: 3.9328542}
   serializedVersion: 2
   m_Radius: 4.2211537
---- !u!114 &5483817690409781762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821471706354161306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2af4a3c86d70be54a8fce0a4283aec09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shatterDetails:
-    version: 2.0.1
-    shatterType: 1
-    horizontalCuts: 8
-    verticalCuts: 8
-    zigzagFrequency: 0
-    zigzagAmplitude: 0
-    horizontalZigzagPoints: 0
-    horizontalZigzagSize: 0
-    verticalZigzagPoints: 0
-    verticalZigzagSize: 0
-    radialSectors: 14
-    radials: 2
-    randomizeAtRunTime: 1
-    randomSeed: 0
-    randomness: 1
-    colliderType: 0
-    explodeFrom: {x: 0.5, y: 0.5}
-    explosionForceX: {x: 1, y: 5}
-    explosionForceY: {x: 1, y: 5}
-    explosionRotationSpeed: {x: 0, y: 360}

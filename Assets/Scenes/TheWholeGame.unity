@@ -3230,8 +3230,13 @@ MonoBehaviour:
   - {fileID: 8287919835037620882, guid: 5cf42da06196f1846be8971060a24c5b, type: 3}
   - {fileID: 8497643081736378703, guid: f4e6acba21fcb0946bbb5e7a6d4ff8c9, type: 3}
   - {fileID: 983464365631943129, guid: 4dac736adb9814847b8598ee1be02e6c, type: 3}
-  timePerVillage: 5
-  invincible: 0
+  - {fileID: 3402633107679316742, guid: 811c8efb4efb0b64e9f4db71cdafa184, type: 3}
+  - {fileID: 2913605701829685965, guid: 47055248d49145548820a988475ec6aa, type: 3}
+  - {fileID: 6677032624784972530, guid: 5855171acb96a78459e8738c8ffaf761, type: 3}
+  - {fileID: 4235273086886940024, guid: 3cea60cf5320bbd4ebf8762786c99de8, type: 3}
+  - {fileID: 8941937975823795668, guid: a8c15073051e9a949bf22868834bd585, type: 3}
+  timePerVillage: 2
+  invincible: 1
   rootDelay: 4.5
 --- !u!4 &1473630551
 Transform:
