@@ -59,8 +59,15 @@ public class GameController : Singleton<GameController>
 
     void Start()
     {
+        Cursor.visible = true;
         var rnd = new System.Random();
-        hatOrderForThisRun = hatPrefabs.OrderBy(x => rnd.Next()).ToArray();
+        hatOrderForThisRun = new GameObject[hatPrefabs.Length];
+		for (int i = 0; i < hatPrefabs.Length; i++)
+		{
+            hatOrderForThisRun[i] = hatPrefabs[i];
+		}
+        hatOrderForThisRun.Shuffle();
+
         scrollSpeed = 0;
 
         cam = Camera.main;
@@ -86,7 +93,7 @@ public class GameController : Singleton<GameController>
 			}
 		}
 
-        var hat = Instantiate(hatPrefabs[hatsObtained], parent);
+        var hat = Instantiate(hatOrderForThisRun[hatsObtained], parent);
         hat.transform.localPosition = Vector3.zero;
         hat.transform.localScale = Vector3.one;
 
