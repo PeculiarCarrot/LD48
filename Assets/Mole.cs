@@ -25,6 +25,10 @@ public class Mole : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+	private void Start()
+	{
         var newPos = transform.localPosition;
         newPos.x = Random.Range(-2, 2f);
         newPos.y = -2.87f;
@@ -33,7 +37,7 @@ public class Mole : MonoBehaviour
         chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
     }
 
-    public void Give()
+	public void Give()
 	{
         state = MoleState.Giving;
         animator.SetTrigger("give");
@@ -50,7 +54,7 @@ public class Mole : MonoBehaviour
     {
         if(state == MoleState.Moving)
 		{
-            //Debug.DrawLine(transform.position, goalPos, Color.yellow);
+            Debug.DrawLine(transform.position, goalPos, Color.yellow);
             if(Vector3.Distance(transform.position, goalPos) > .05f)
 			{
                 transform.position = Vector3.MoveTowards(transform.position, goalPos, chosenMoveSpeed * Time.deltaTime);

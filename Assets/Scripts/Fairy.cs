@@ -8,6 +8,7 @@ public class Fairy : MonoBehaviour
     public float lerpSpeed = 7f;
     new SpriteRenderer renderer;
     public GameObject hatPos;
+    bool controlEnabled;
 
 	private void Awake()
 	{
@@ -19,9 +20,14 @@ public class Fairy : MonoBehaviour
         
     }
 
+    public void EnableControl()
+	{
+        controlEnabled = true;
+	}
+
     void LateUpdate()
     {
-        if (GameController.Instance.paused)
+        if (GameController.Instance.paused || !controlEnabled)
             return;
 
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
