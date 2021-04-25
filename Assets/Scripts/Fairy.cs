@@ -21,7 +21,7 @@ public class Fairy : MonoBehaviour
 
     void LateUpdate()
     {
-        if (GameController.Instance.gameOver)
+        if (GameController.Instance.paused)
             return;
 
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

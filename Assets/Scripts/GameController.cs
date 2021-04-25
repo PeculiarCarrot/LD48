@@ -36,7 +36,7 @@ public class GameController : Singleton<GameController>
     public int fps = 30;
     public bool fairyPullsRoot;
     [HideInInspector]
-    public bool gameOver;
+    public bool paused;
     public float difficulty;
 
     [Required]
@@ -72,7 +72,6 @@ public class GameController : Singleton<GameController>
     public void GetNewHat()
 	{
         Transform parent = fairy.hatPos.transform;
-        Debug.Log("NEW HAT==========================================================================");
         if(hatsObtained > 0)
 		{
             var s = "";
@@ -80,7 +79,6 @@ public class GameController : Singleton<GameController>
 			{
                 s += "  ";
                 parent = parent.transform.GetChild(0);
-                Debug.Log("Parent: " + parent);
 			}
 		}
 
@@ -114,7 +112,7 @@ public class GameController : Singleton<GameController>
     {
         difficultyText.text = "Difficulty: " + difficulty.ToString("0.00");
         meterText.text = (Camera.main.transform.position.y * -.1f).ToString("0.0") + "m";
-        if (gameOver)
+        if (paused)
             return;
         Cursor.visible = false;
 
@@ -157,8 +155,18 @@ public class GameController : Singleton<GameController>
     void GameOver()
 	{
         gameOverCanvas.enabled = true;
-        gameOver = true;
+        paused = true;
         Cursor.visible = true;
+	}
+
+    public void Pause()
+	{
+        paused = true;
+	}
+
+    public void Unpause()
+	{
+        paused = false;
 	}
 
     public Vector3 ClampInsideCamera(Vector3 pos, float xPad, float yPad)
@@ -183,7 +191,7 @@ public class GameController : Singleton<GameController>
     {
         if (col.gameObject.CompareTag("FairyHazard"))
         {
-            TimeControl.Hitstop(.4f, .2f);
+            //TimeControl.Hitstop(.4f, .2f);
             GameOver();
         }
     }
@@ -192,7 +200,7 @@ public class GameController : Singleton<GameController>
 	{
         if(col.gameObject.CompareTag("Harmful"))
 		{
-            TimeControl.Hitstop(.4f, .2f);
+            //TimeControl.Hitstop(.4f, .2f);
             GameOver();
 		}
         //Debug.Log("ROOT HIT " + col);
