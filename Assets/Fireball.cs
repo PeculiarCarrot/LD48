@@ -12,11 +12,13 @@ public class Fireball : MonoBehaviour
 
     void Awake()
     {
-        chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);    
+        chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
     }
 
     void Update()
     {
+        if (GameController.Instance.paused)
+            return;
         transform.position = transform.position + chosenMoveSpeed * transform.right * Time.deltaTime;
     }
 }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4632710729019263967}
   - component: {fileID: 8126168912215390032}
   - component: {fileID: 1220766361929791491}
-  - component: {fileID: 6925309375035682356}
   - component: {fileID: 493736948742545285}
+  - component: {fileID: 4702514159736137363}
   m_Layer: 0
-  m_Name: Rock
+  m_Name: Rock 1
   m_TagString: Harmful
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,23 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18fbcd7450a4c34cb29e36171761184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6925309375035682356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4095401971468966299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69862de51a96aa94f820712713c74e82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  choices:
-  - {fileID: 21300000, guid: 516a562ee38d647459d93e818405440a, type: 3}
-  - {fileID: 21300000, guid: a44092c1636b4334fad594f4e028e3bd, type: 3}
-  - {fileID: 21300000, guid: 16476fcd54e4e6249938707309f7b389, type: 3}
-  - {fileID: 21300000, guid: c23aaa8f0f3ac5e448952a159012611a, type: 3}
 --- !u!61 &493736948742545285
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,3 +122,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.935186, y: 2.608895}
   m_EdgeRadius: 0
+--- !u!114 &4702514159736137363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095401971468966299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af4a3c86d70be54a8fce0a4283aec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shatterDetails:
+    version: 2.0.1
+    shatterType: 1
+    horizontalCuts: 8
+    verticalCuts: 8
+    zigzagFrequency: 0
+    zigzagAmplitude: 0
+    horizontalZigzagPoints: 0
+    horizontalZigzagSize: 0
+    verticalZigzagPoints: 0
+    verticalZigzagSize: 0
+    radialSectors: 14
+    radials: 2
+    randomizeAtRunTime: 0
+    randomSeed: 0
+    randomness: 1
+    colliderType: 0
+    explodeFrom: {x: 0.5, y: 0.5}
+    explosionForceX: {x: 1, y: 5}
+    explosionForceY: {x: 1, y: 5}
+    explosionRotationSpeed: {x: 0, y: 360}

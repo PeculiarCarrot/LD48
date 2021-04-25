@@ -34,9 +34,12 @@ public class Imp : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         while(castsLeft > 0)
         {
-            animator.SetTrigger("cast");
+            if (!GameController.Instance.paused)
+            {
+                animator.SetTrigger("cast");
+                castsLeft--;
+            }
             yield return new WaitForSeconds(Random.Range(timeBetweenCasts.x, timeBetweenCasts.y));
-            castsLeft--;
         }
         yield return new WaitForSeconds(1.5f);
         leaving = true;
@@ -44,7 +47,9 @@ public class Imp : MonoBehaviour
 
 	void LateUpdate()
     {
-        if(leaving)
+        if (GameController.Instance.paused)
+            return;
+        if (leaving)
 		{
             transform.position += Vector3.up * Time.deltaTime;
             return;

@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bd56e679ef3df48a1338988dc0ddb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenWander: {x: 0, y: 1.010101}
+  timeBetweenWander: {x: 0, y: 2.2222223}
   maxWanderDistance: 2
   moveSpeed: {x: 0.12894003, y: 2}
   maxSpawnDistFromVillageCenter: 2

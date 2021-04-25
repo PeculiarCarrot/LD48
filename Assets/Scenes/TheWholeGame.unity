@@ -1040,6 +1040,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420034}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1055,6 +1056,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25007d24c8b3cde4b86106fbeb87820c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 519420032}
+  shakeDuration: 0
+  shakeAmount: 0.7
+  decreaseFactor: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2845,7 +2862,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.12
+  m_Radius: 0.07
 --- !u!114 &1169983947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3214,7 +3231,7 @@ MonoBehaviour:
   - {fileID: 8497643081736378703, guid: f4e6acba21fcb0946bbb5e7a6d4ff8c9, type: 3}
   - {fileID: 983464365631943129, guid: 4dac736adb9814847b8598ee1be02e6c, type: 3}
   timePerVillage: 5
-  invincible: 1
+  invincible: 0
   rootDelay: 4.5
 --- !u!4 &1473630551
 Transform:

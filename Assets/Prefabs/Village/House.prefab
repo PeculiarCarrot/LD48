@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5784602660766276396}
   - component: {fileID: 9181371611494101587}
   - component: {fileID: 7586068343563821992}
+  - component: {fileID: 4194474678545388256}
+  - component: {fileID: 5483817690409781762}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -72,16 +74,16 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1f419d34fc80b694f96f4a3435770b23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4af50ece9bb63b4abab3495cf85518e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.62, y: 3.34}
+  m_Size: {x: 14, y: 12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &9181371611494101587
 MonoBehaviour:
@@ -112,3 +114,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: {x: 0.85, y: 1.15}
+--- !u!58 &4194474678545388256
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821471706354161306}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.014246544, y: 3.9328542}
+  serializedVersion: 2
+  m_Radius: 4.2211537
+--- !u!114 &5483817690409781762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821471706354161306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af4a3c86d70be54a8fce0a4283aec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shatterDetails:
+    version: 2.0.1
+    shatterType: 1
+    horizontalCuts: 8
+    verticalCuts: 8
+    zigzagFrequency: 0
+    zigzagAmplitude: 0
+    horizontalZigzagPoints: 0
+    horizontalZigzagSize: 0
+    verticalZigzagPoints: 0
+    verticalZigzagSize: 0
+    radialSectors: 14
+    radials: 2
+    randomizeAtRunTime: 1
+    randomSeed: 0
+    randomness: 1
+    colliderType: 0
+    explodeFrom: {x: 0.5, y: 0.5}
+    explosionForceX: {x: 1, y: 5}
+    explosionForceY: {x: 1, y: 5}
+    explosionRotationSpeed: {x: 0, y: 360}

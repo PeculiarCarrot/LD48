@@ -22,7 +22,8 @@ public class Worm : MonoBehaviour
 
     void Update()
     {
-
+        if (GameController.Instance.paused)
+            return;
         transform.position += transform.right * chosenSpeed * Time.deltaTime * (movingRight ? 1 : -1);
     }
 }

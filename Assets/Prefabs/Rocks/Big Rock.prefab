@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1220766361929791491}
   - component: {fileID: 6925309375035682356}
   - component: {fileID: 493736948742545285}
+  - component: {fileID: 6126588524177458904}
   m_Layer: 0
   m_Name: Big Rock
   m_TagString: Harmful
@@ -139,3 +140,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.935186, y: 2.608895}
   m_EdgeRadius: 0
+--- !u!114 &6126588524177458904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095401971468966299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af4a3c86d70be54a8fce0a4283aec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shatterDetails:
+    version: 2.0.1
+    shatterType: 1
+    horizontalCuts: 8
+    verticalCuts: 8
+    zigzagFrequency: 0
+    zigzagAmplitude: 0
+    horizontalZigzagPoints: 0
+    horizontalZigzagSize: 0
+    verticalZigzagPoints: 0
+    verticalZigzagSize: 0
+    radialSectors: 14
+    radials: 2
+    randomizeAtRunTime: 0
+    randomSeed: 0
+    randomness: 1
+    colliderType: 0
+    explodeFrom: {x: 0.5, y: 0.5}
+    explosionForceX: {x: 1, y: 5}
+    explosionForceY: {x: 1, y: 5}
+    explosionRotationSpeed: {x: 0, y: 360}

@@ -30,6 +30,8 @@ public class Termite : MonoBehaviour
 
     void Update()
     {
+        if (GameController.Instance.paused)
+            return;
         var newPos = transform.position;
         newPos += transform.up * chosenAmplitude * Mathf.Sin(chosenFrequency * Time.time) * Time.deltaTime;
         newPos += transform.right * chosenMoveSpeed * Time.deltaTime * (movingRight ? 1 : -1);

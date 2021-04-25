@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
+using SpriteShatter;
 
 public class GameController : Singleton<GameController>
 {
@@ -103,7 +104,8 @@ public class GameController : Singleton<GameController>
 
     public void OnStartClicked()
 	{
-        StartCoroutine(DoIntro());
+        if(!fairy.gameObject.activeSelf)
+            StartCoroutine(DoIntro());
 	}
 
     IEnumerator DoIntro()
@@ -278,8 +280,13 @@ public class GameController : Singleton<GameController>
 	{
         if(col.gameObject.CompareTag("Harmful") && !invincible)
 		{
-            //TimeControl.Hitstop(.4f, .2f);
-            GameOver();
+            TimeControl.Hitstop(.05f);
+            CameraShake.Shake(.1f, .1f);
+            if(col.gameObject.TryGetComponent(out Shatter shatter))
+			{
+                shatter.shatter();
+            }
+            //GameOver();
 		}
         //Debug.Log("ROOT HIT " + col);
 	}
@@ -317,7 +324,7 @@ public class GameController : Singleton<GameController>
                 }
                 root.SetPositions(arr);
             }
-            rootHitbox.transform.position = root.GetPosition(Mathf.Max(0, root.positionCount - 10));
+            rootHitbox.transform.position = root.GetPosition(Mathf.Max(0, root.positionCount - 4));
 
             root.SetPosition(root.positionCount - 1, newPos);
             timeSinceLastRootNode = 0;
