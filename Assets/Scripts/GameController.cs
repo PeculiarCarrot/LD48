@@ -243,7 +243,7 @@ public class GameController : Singleton<GameController>
     void SpawnObjects()
 	{
         var diff = Mathf.Max(difficulty, .1f);
-        if (Random.Range(0, 1f) < diff * .17f)
+        if (Random.Range(0, 1f) < diff * .13f)
             SpawnObstacle();
 	}
 

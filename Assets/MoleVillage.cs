@@ -55,8 +55,8 @@ public class MoleVillage : MonoBehaviour
 
     void CreateHouse(GameObject prefab, Vector3 pos)
 	{
-        Instantiate(prefab, gameObject.transform);
-        prefab.transform.localPosition = pos;
+        var go = Instantiate(prefab, gameObject.transform);
+        go.transform.localPosition = pos;
 	}
 
     public void OnTriggerEnter2D(Collider2D col)

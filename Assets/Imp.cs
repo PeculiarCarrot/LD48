@@ -37,9 +37,10 @@ public class Imp : MonoBehaviour
 
     IEnumerator DoStuff()
 	{
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.2f);
         audio.PlayOneShot(Utils.Choose(spawnIn));
-        while(castsLeft > 0)
+        yield return new WaitForSeconds(1.3f);
+        while (castsLeft > 0)
         {
             if (!GameController.Instance.paused)
             {

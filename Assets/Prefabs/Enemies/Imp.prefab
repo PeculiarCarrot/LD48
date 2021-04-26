@@ -70,10 +70,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 1344997203046365246, guid: b46da39aeb3bf3e448b67045c7779319,
     type: 3}
-  fireballCount: {x: 2, y: 4}
-  spread: 30
+  fireballCount: {x: 2, y: 3}
+  spread: 20
   timeBetweenCasts: {x: 2.4655018, y: 5}
-  castsBeforeLeave: {x: 3, y: 6}
+  castsBeforeLeave: {x: 3, y: 4}
   fireballInitial: {fileID: 8300000, guid: 7bc40864905ba1a47b97bba6b12dcaf5, type: 3}
   spawnIn:
   - {fileID: 8300000, guid: 2f268983ec458ae43af2936a3c203c87, type: 3}
