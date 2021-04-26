@@ -77,11 +77,19 @@ public class GameController : Singleton<GameController>
 
     [Range(0, 1f)]
     public float musicVolume = .05f;
+    Vector3[] rootPosArray;
+
+    public GameObject howToPlayButton, creditsButton, quitButton;
 
     new void Awake()
 	{
         blackFade.color = Color.black;
         audio = GetComponent<AudioSource>();
+        rootPosArray = new Vector3[maxNodes];
+
+        var c = creditsText.color;
+        c.a = 0;
+        creditsText.color = c;
 	}
 
     void Start()
@@ -139,7 +147,15 @@ public class GameController : Singleton<GameController>
 	}
 
     IEnumerator DoIntro()
-	{
+    {
+        if (creditsVisible)
+        {
+            creditsVisible = false;
+            creditsText.DOFade(0f, .5f);
+        }
+        quitButton.SetActive(false);
+        howToPlayButton.SetActive(false);
+        creditsButton.SetActive(false);
         fairy.gameObject.SetActive(true);
 
         audio.PlayOneShot(fairyEntrance);
@@ -162,17 +178,16 @@ public class GameController : Singleton<GameController>
 
     void InitializeRoot()
 	{
-        var arr = new Vector3[maxNodes];
         var p = root.GetPosition(root.positionCount - 1);
         var bounds = cam.OrthographicBounds();
         p.x = cam.transform.position.x;
         p.y = bounds.yMax + 1;
         for (int i = 0; i < maxNodes; i++)
         {
-            arr[i] = p;
+            rootPosArray[i] = p;
         }
         root.positionCount = maxNodes;
-        root.SetPositions(arr);
+        root.SetPositions(rootPosArray);
         rootInitialized = true;
     }
 
@@ -336,6 +351,37 @@ public class GameController : Singleton<GameController>
         //Debug.Log("ROOT HIT " + col);
 	}
 
+    bool creditsVisible;
+    public TextMeshProUGUI creditsText;
+    public GameObject infoPanel;
+
+    public void CreditsButtonClicked()
+	{
+        DOTween.Kill(creditsText);
+        if(creditsVisible)
+		{
+            creditsVisible = false;
+            creditsText.DOFade(0f, .5f);
+        }
+        else
+        {
+            creditsText.DOFade(1f, .5f);
+            creditsVisible = true;
+        }
+    }
+
+    public void OpenInfoPanel()
+    {
+        howToPlayButton.SetActive(false);
+        infoPanel.SetActive(true);
+	}
+
+    public void CloseInfoPanel()
+    {
+        howToPlayButton.SetActive(true);
+        infoPanel.SetActive(false);
+    }
+
     void UpdateRoot()
     {
         //if (timeSinceLastRootNode > timeBetweenNodes)
@@ -361,13 +407,12 @@ public class GameController : Singleton<GameController>
             }
             else
             {
-                var arr = new Vector3[maxNodes];
-                root.GetPositions(arr);
+                root.GetPositions(rootPosArray);
                 for (int i = 0; i < maxNodes - 1; i++)
                 {
-                    arr[i] = arr[i + 1];
+                    rootPosArray[i] = rootPosArray[i + 1];
                 }
-                root.SetPositions(arr);
+                root.SetPositions(rootPosArray);
             }
             rootHitbox.transform.position = root.GetPosition(Mathf.Max(0, root.positionCount - 4));
 
