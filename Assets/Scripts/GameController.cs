@@ -62,7 +62,7 @@ public class GameController : Singleton<GameController>
     public bool invincible;
     public Image blackFade;
 
-    public AudioSource menuMusic, gameplayMusic;
+    public AudioSource menuMusic, gameplayMusic, creditsMusic;
     [HideInInspector]
     public new AudioSource audio;
 
@@ -80,6 +80,7 @@ public class GameController : Singleton<GameController>
     Vector3[] rootPosArray;
 
     public GameObject howToPlayButton, creditsButton, quitButton;
+    public TextMeshProUGUI highScoreText;
 
     new void Awake()
 	{
@@ -90,13 +91,18 @@ public class GameController : Singleton<GameController>
         var c = creditsText.color;
         c.a = 0;
         creditsText.color = c;
-	}
+
+        var f = PlayerPrefs.GetFloat("highScore", 0);
+        if(f > 0)
+            highScoreText.text = "High Score: " + f.ToString("0.0") + "m";
+    }
 
     void Start()
     {
         blackFade.DOFade(0f, 1.2f);
         menuMusic.volume = 0;
         menuMusic.DOFade(musicVolume, 1.2f);
+        creditsMusic.volume = 0;
         Cursor.visible = true;
         hatOrderForThisRun = new GameObject[hatPrefabs.Length];
 		for (int i = 0; i < hatPrefabs.Length; i++)
@@ -153,6 +159,7 @@ public class GameController : Singleton<GameController>
             creditsVisible = false;
             creditsText.DOFade(0f, .5f);
         }
+        highScoreText.gameObject.SetActive(false);
         quitButton.SetActive(false);
         howToPlayButton.SetActive(false);
         creditsButton.SetActive(false);
@@ -170,8 +177,9 @@ public class GameController : Singleton<GameController>
             DOTween.To(() => scrollSpeed, x => scrollSpeed = x, goalScrollSpeed, 1f).SetDelay(3f);
         });
         menuMusic.DOFade(0, 2f).SetDelay(3f);
+        creditsMusic.DOFade(0, 2f).SetDelay(3f);
         gameplayMusic.Play();
-        gameplayMusic.DOFade(musicVolume, 2f).SetDelay(3f);
+        gameplayMusic.DOFade(musicVolume, 2f).SetDelay(4f);
         InitializeRoot();
         yield break;
     }
@@ -293,7 +301,15 @@ public class GameController : Singleton<GameController>
     {
         //audio.Stop();
         audio.PlayOneShot(Utils.Choose(rootHit));
+        gameplayMusic.Stop();
+        gameplayMusic.clip = Utils.Choose(gameOverSounds);
+        gameplayMusic.Play();
         audio.PlayOneShot(Utils.Choose(fairyGameOver));
+        if ((Camera.main.transform.position.y * -.1f) > PlayerPrefs.GetFloat("highScore", 0))
+		{
+            PlayerPrefs.SetFloat("highScore", (Camera.main.transform.position.y * -.1f));
+            PlayerPrefs.Save();
+		}
         //audio.clip = Utils.Choose(gameOverSounds);
         //audio.Play();
         gameOverCanvas.enabled = true;
@@ -356,17 +372,25 @@ public class GameController : Singleton<GameController>
     public GameObject infoPanel;
 
     public void CreditsButtonClicked()
-	{
+    {
         DOTween.Kill(creditsText);
-        if(creditsVisible)
+        DOTween.Kill(creditsMusic);
+        DOTween.Kill(menuMusic);
+        if (creditsVisible)
 		{
             creditsVisible = false;
             creditsText.DOFade(0f, .5f);
+
+            creditsMusic.DOFade(0, 1f);
+            menuMusic.DOFade(musicVolume, 1f);
         }
         else
         {
-            creditsText.DOFade(1f, .5f);
             creditsVisible = true;
+            creditsText.DOFade(1f, .5f);
+
+            menuMusic.DOFade(0, 1f);
+            creditsMusic.DOFade(musicVolume, 1f);
         }
     }
 

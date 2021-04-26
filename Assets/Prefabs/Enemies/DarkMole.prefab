@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2957150678771946720}
   - component: {fileID: 2957150678771946750}
   - component: {fileID: 8104471292238672717}
-  - component: {fileID: 1423392226674698617}
   m_Layer: 0
   m_Name: DarkMole
   m_TagString: FairyHazard
@@ -66,8 +65,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c25be7f3d8b5840a27a077e70ea60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpWarning: []
-  jump: []
+  jumpWarning:
+  - {fileID: 8300000, guid: c5054f2f54569c148a35cf2d1431818e, type: 3}
+  - {fileID: 8300000, guid: 83c0e185df74ad147b10fb951015c751, type: 3}
+  - {fileID: 8300000, guid: a4822ad1eb5136c47976b14fcdbcbd09, type: 3}
+  jump:
+  - {fileID: 8300000, guid: 9558dc6e34955144689c67044a00775b, type: 3}
+  - {fileID: 8300000, guid: 28e8e88493290a74b88109a621daf0f5, type: 3}
+  - {fileID: 8300000, guid: c76573fd5ecc38347b463c92c1960601, type: 3}
+  - {fileID: 8300000, guid: 56ff32f083c06e3429dd1bccf4f28823, type: 3}
 --- !u!82 &8104471292238672717
 AudioSource:
   m_ObjectHideFlags: 0
@@ -164,20 +170,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1423392226674698617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957150678771946721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db1cc165dcaedd6489c03352c822d9b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distances: {x: 7, y: 10}
-  volumes: {x: 0.4, y: 0}
 --- !u!1 &3568827458114146214
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +265,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.23386687, y: 1.3410988}
+  m_Offset: {x: 0.18997213, y: 1.2789161}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.43060994, y: 0.11792643}
@@ -284,5 +276,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7650522, y: 2.65905}
+  m_Size: {x: 1.0919962, y: 1.8762531}
   m_EdgeRadius: 0

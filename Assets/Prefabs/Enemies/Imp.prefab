@@ -74,7 +74,7 @@ MonoBehaviour:
   spread: 20
   timeBetweenCasts: {x: 2.4655018, y: 5}
   castsBeforeLeave: {x: 3, y: 4}
-  fireballInitial: {fileID: 8300000, guid: 7bc40864905ba1a47b97bba6b12dcaf5, type: 3}
+  fireballInitial: {fileID: 8300000, guid: 4bfcaab8e2f8e13449b08e9e0d740555, type: 3}
   spawnIn:
   - {fileID: 8300000, guid: 2f268983ec458ae43af2936a3c203c87, type: 3}
   useFireballVoice:
