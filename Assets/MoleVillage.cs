@@ -85,6 +85,7 @@ public class MoleVillage : MonoBehaviour
         typeCoroutine = StartCoroutine(TypeText(goalDialogueText));
 
         audio.clip = Utils.Choose(greetingClips);
+        audio.pitch = Random.Range(.7f, 1.3f);
         audio.Play();
 
         foreach (var m in moles)

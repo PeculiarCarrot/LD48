@@ -14,12 +14,18 @@ public class Imp : MonoBehaviour
     [MinMaxSlider(1f, 10f)]
     public Vector2 timeBetweenCasts = new Vector2(1.5f, 5);
     public Vector2Int castsBeforeLeave = new Vector2Int(3, 10);
+    new AudioSource audio;
 
     int castsLeft;
     bool leaving;
 
+    public AudioClip fireballInitial;
+    public AudioClip[] spawnIn;
+    public AudioClip[] useFireballVoice;
+
     void Awake()
     {
+        audio = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         castsLeft = Random.Range(castsBeforeLeave.x, castsBeforeLeave.y);
     }
@@ -32,6 +38,7 @@ public class Imp : MonoBehaviour
     IEnumerator DoStuff()
 	{
         yield return new WaitForSeconds(1.5f);
+        audio.PlayOneShot(Utils.Choose(spawnIn));
         while(castsLeft > 0)
         {
             if (!GameController.Instance.paused)
@@ -74,6 +81,9 @@ public class Imp : MonoBehaviour
 
     public void OnCast()
 	{
+        audio.PlayOneShot(fireballInitial);
+        if(Random.Range(1, 5) == 1)
+            audio.PlayOneShot(Utils.Choose(useFireballVoice));
         var fairyPos = GameController.Instance.fairy.transform.position;
         fairyPos.y -= GameController.Instance.scrollSpeed;
         for (int i = 0; i < Random.Range(fireballCount.x, fireballCount.y); i++)

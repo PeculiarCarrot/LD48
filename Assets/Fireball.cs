@@ -13,7 +13,7 @@ public class Fireball : MonoBehaviour
     void Awake()
     {
         chosenMoveSpeed = Random.Range(moveSpeed.x, moveSpeed.y);
-        Destroy(gameObject, 10f);
+        Destroy(gameObject, 20f);
     }
 
     void Update()

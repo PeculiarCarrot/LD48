@@ -36,7 +36,8 @@ public class Hat : MonoBehaviour
     }
 
     public void StopPresenting()
-	{
+    {
+        GameController.Instance.audio.PlayOneShot(Utils.Choose(GameController.Instance.fairyGetHat));
         presenting = false;
         transform.parent = hatPos;
         DOTween.Complete(transform);

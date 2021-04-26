@@ -281,5 +281,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1cc165dcaedd6489c03352c822d9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distances: {x: 5, y: 8}
+  distances: {x: 7, y: 10}
   volumes: {x: 0.1, y: 0}

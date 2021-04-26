@@ -63,13 +63,25 @@ public class GameController : Singleton<GameController>
     public Image blackFade;
 
     public AudioSource menuMusic, gameplayMusic;
+    [HideInInspector]
+    public new AudioSource audio;
+
+    [Header("Audio")]
+    public AudioClip fairyEntrance;
+    public AudioClip[] fairyEntranceQuips;
+    public AudioClip[] fairyGetHat;
+    public AudioClip[] getHat;
+    public AudioClip[] rootHit;
+    public AudioClip[] gameOverSounds;
+    public AudioClip[] fairyGameOver;
 
     [Range(0, 1f)]
     public float musicVolume = .05f;
 
-    void Awake()
+    new void Awake()
 	{
         blackFade.color = Color.black;
+        audio = GetComponent<AudioSource>();
 	}
 
     void Start()
@@ -114,6 +126,8 @@ public class GameController : Singleton<GameController>
 
         var hat = Instantiate(hatOrderForThisRun[hatsObtained], parent).GetComponent<Hat>();
 
+        audio.PlayOneShot(Utils.Choose(getHat));
+
         hatsObtained++;
         return hat;
 	}
@@ -128,6 +142,8 @@ public class GameController : Singleton<GameController>
 	{
         fairy.gameObject.SetActive(true);
 
+        audio.PlayOneShot(fairyEntrance);
+        audio.PlayOneShot(Utils.Choose(fairyEntranceQuips));
         var oldScale = Vector3.one;
         fairyHouse.transform.localScale = fairyHouse.transform.localScale * 1.2f;
         fairyHouse.transform.DOScale(oldScale, .5f).SetEase(Ease.OutBounce);
@@ -259,7 +275,12 @@ public class GameController : Singleton<GameController>
 	}
 
     void GameOver()
-	{
+    {
+        //audio.Stop();
+        audio.PlayOneShot(Utils.Choose(rootHit));
+        audio.PlayOneShot(Utils.Choose(fairyGameOver));
+        //audio.clip = Utils.Choose(gameOverSounds);
+        //audio.Play();
         gameOverCanvas.enabled = true;
         paused = true;
         Cursor.visible = true;

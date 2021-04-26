@@ -54,6 +54,11 @@ public static class ExtensionMethods
         return new Vector2(v.x, v.z);
     }
 
+    public static Vector2 XY(this Vector3 v)
+    {
+        return new Vector2(v.x, v.y);
+    }
+
     public static Vector3 XZ(this Vector2 v, float y = 0)
     {
         return new Vector3(v.x, y, v.y);
