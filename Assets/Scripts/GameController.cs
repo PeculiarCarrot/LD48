@@ -165,8 +165,8 @@ public class GameController : Singleton<GameController>
         creditsButton.SetActive(false);
         fairy.gameObject.SetActive(true);
 
-        audio.PlayOneShot(fairyEntrance);
-        audio.PlayOneShot(Utils.Choose(fairyEntranceQuips));
+        audio.PlayOneShot(fairyEntrance, .4f);
+        audio.PlayOneShot(Utils.Choose(fairyEntranceQuips), .5f);
         var oldScale = Vector3.one;
         fairyHouse.transform.localScale = fairyHouse.transform.localScale * 1.2f;
         fairyHouse.transform.DOScale(oldScale, .5f).SetEase(Ease.OutBounce);

@@ -3042,24 +3042,24 @@ MonoBehaviour:
     at farmers markets).
 
     This fairy''s job is to help guide the tree''s roots
-    so it''ll grow big and strong (and produce delicious fruits).
+    so it''ll grow big and strong.
 
 
-    Be careful
-    not to guide your root into rocks, and of course avoid the local wildlife.
+    Be careful not to guide your root into rocks,
+    and of course avoid the local wildlife.
 
-    The
-    fairy has special friends underground who shower her with gifts. Be sure to say
-    hello!
+    The fairy has special friends underground
+    who shower her with gifts. Be sure to say hello!
 
-    As you go deeper, you may encounter some pesky imps...
+    As you go deeper, you may
+    encounter some pesky imps...
 
 
-    Thanks
-    to our fairy''s magic, the root is protected, but she herself can get badly burned.
+    Thanks to our fairy''s magic, the root is
+    protected from fire, but she herself can get badly burned.
 
-    Now
-    go! Make the root grow as deep as it can!
+    Now go! Make
+    the root grow as deep as it can!
 
 '
   m_isRightToLeft: 0
@@ -5289,7 +5289,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f32419a5c1b2d7546b40c9be919411fd, type: 3}
   - {fileID: 8300000, guid: f9a0e996764be9043b5d691d8a8eb3e9, type: 3}
   getHat:
-  - {fileID: 8300000, guid: ecbc690b6c66da34ead9767ed7adb6e8, type: 3}
+  - {fileID: 8300000, guid: 578edfaf8c0e0114eb589ecd3547e8ed, type: 3}
   rootHit:
   - {fileID: 8300000, guid: a0f0dd69024c6f64aa3e868fbf6f0c77, type: 3}
   gameOverSounds:
